@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { useForm } from "react-hook-form";
 
@@ -23,6 +24,7 @@ export function AddTaskModal() {
   const form = useForm({
     defaultValues: {
       title: "",
+      description: "",
     },
   });
 
@@ -54,6 +56,19 @@ export function AddTaskModal() {
                   <FormLabel>Title</FormLabel>
                   <FormControl>
                     <Input placeholder="Enter task title" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea placeholder="Enter task description" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
