@@ -10,7 +10,6 @@ interface TaskCardProps {
 }
 
 const TaskCard = ({ task }: TaskCardProps) => {
-  // State যোগ করা হলো
   const [isCompleted, setIsCompleted] = useState(task.isCompleted || false);
 
   return (
