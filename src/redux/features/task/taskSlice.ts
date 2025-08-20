@@ -33,6 +33,7 @@ const taskSlice = createSlice({
       const taskData = createTask(action.payload);
       state.tasks.push(taskData);
     },
+
     toggleCompleteState: (state, action: PayloadAction<string>) => {
       console.log(action);
       state.tasks.forEach((task) =>
@@ -41,19 +42,38 @@ const taskSlice = createSlice({
           : task
       );
     },
+
     deleteTask: (state, action: PayloadAction<string>) => {
       state.tasks = state.tasks.filter((task) => task.id !== action.payload);
+    },
+
+    updateFilter: (
+      state: InitialState,
+      action: PayloadAction<"High" | "Medium" | "Low" | "all">
+    ) => {
+      state.filter = action.payload;
     },
   },
 });
 
 export const selectTasks = (state: RootState) => {
-  return state.todo.tasks;
+  const filter = state.todo.filter;
+
+  if (filter == "Low") {
+    return state.todo.tasks.filter((task) => task.priority == "Low");
+  } else if (filter == "Medium") {
+    return state.todo.tasks.filter((task) => task.priority == "Medium");
+  } else if (filter === "High") {
+    return state.todo.tasks.filter((task) => task.priority === "High");
+  } else {
+    return state.todo.tasks;
+  }
 };
 export const selectFilter = (state: RootState) => {
   return state.todo.filter;
 };
 
-export const { addTask, toggleCompleteState, deleteTask } = taskSlice.actions;
+export const { addTask, toggleCompleteState, deleteTask, updateFilter } =
+  taskSlice.actions;
 
 export default taskSlice.reducer;
